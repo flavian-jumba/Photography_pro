@@ -4,10 +4,14 @@
 
 // add Event on multiple elment
 
-const addEventOnElements = function (elements, eventType, callback) {
-  for (let i = 0; i < elements.length; i++) {
-    elements[i].addEventListener(eventType, callback);
-  }
+const addEventOnElements = (elements, eventType, callback) => {
+  if (!elements) return;
+  if (!Array.isArray(elements) && !(elements instanceof NodeList)) return;
+  elements.forEach(element => {
+    element.addEventListener(eventType, (event) => {
+      callback(event.currentTarget);
+    });
+  });
 }
 
 
